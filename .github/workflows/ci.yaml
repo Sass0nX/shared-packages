@@ -18,7 +18,7 @@ jobs:
 
       - name: Configure Nexus authentication
         shell: powershell
-        working_directory: ui-utils
+        working-directory: ui-utils
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
@@ -26,5 +26,5 @@ jobs:
           npm config set registry "http://10.100.102.25:8081/repository/npm-hosted"
           npm config set //10.100.102.25:8081/repository/npm-hosted/:_auth "$( [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${env:NEXUS_USERNAME}:${env:NEXUS_PASSWORD}")) )"
       - name: Publish package
-        working_directory: ui-utils
+        working-directory: ui-utils
         run: npm publish
