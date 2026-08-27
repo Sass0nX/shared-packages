@@ -1,6 +1,6 @@
 {
   "name": "ui-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Shared utilities for my lab frontend applications",
   "type": "module",
   "main": "index.js",
