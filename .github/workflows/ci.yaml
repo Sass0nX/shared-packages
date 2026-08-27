@@ -22,10 +22,7 @@ jobs:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
         run: |
-          npm config set registry "http://10.100.102.25:8081/repository/npm-hosted/"
+          npm config set registry "http://10.100.102.25:8081/repository/npm-hosted"
           npm config set //10.100.102.25:8081/repository/npm-hosted/:_auth "$( [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${env:NEXUS_USERNAME}:${env:NEXUS_PASSWORD}")) )"
-          npm config set //10.100.102.25:8081/repository/npm-hosted/:email "ci@mylab.local"
-          npm config set //10.100.102.25:8081/repository/npm-hosted/:always-auth true
-
       - name: Publish package
         run: npm publish
