@@ -6,7 +6,21 @@ on:
       - main
 
 jobs:
+
+  test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        working-directory: ui-utils
+        run: npm test
+
+
   publish:
+    needs: test
     runs-on: self-hosted
 
     steps:
