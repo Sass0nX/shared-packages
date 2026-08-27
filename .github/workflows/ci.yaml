@@ -1,4 +1,4 @@
-name: Test Runner
+name: Publish npm Package
 
 on:
   push:
@@ -6,15 +6,26 @@ on:
       - main
 
 jobs:
-  test-runner:
+  publish:
     runs-on: self-hosted
 
     steps:
-      - name: Download repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check Node version
+      - name: Check Node
         run: node --version
 
-      - name: Check npm version
-        run: npm --version
+      - name: Configure Nexus authentication
+        shell: powershell
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        run: |
+          npm config set registry "http://10.100.102.25:8081/repository/npm-hosted/"
+          npm config set //10.100.102.25:8081/repository/npm-hosted/:_auth "$( [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${env:NEXUS_USERNAME}:${env:NEXUS_PASSWORD}")) )"
+          npm config set //10.100.102.25:8081/repository/npm-hosted/:email "ci@mylab.local"
+          npm config set //10.100.102.25:8081/repository/npm-hosted/:always-auth true
+
+      - name: Publish package
+        run: npm publish
