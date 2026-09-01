@@ -1,3 +1,3 @@
 export function getGreeting(name) {
-    return `Hello ${name}, welcome to my DevOps lab!`;
+    return `🚀 Hello ${name}! Welcome to DevOps Lab v2.0!`;
 }
