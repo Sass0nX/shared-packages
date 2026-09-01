@@ -62,4 +62,4 @@ jobs:
           npm config set //10.100.102.25:8081/repository/npm-hosted/:_auth "$( [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("${env:NEXUS_USERNAME}:${env:NEXUS_PASSWORD}")) )"
       - name: Publish package
         working-directory: ui-utils
-        run: npm publish
+        run: npm publish --registry "http://10.100.102.25:8081/repository/npm-hosted"
